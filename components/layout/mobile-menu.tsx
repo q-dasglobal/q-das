@@ -3,7 +3,6 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navigationItems } from "@/lib/data/navigation";
 
@@ -43,23 +42,23 @@ export function MobileMenu({ isOpen, isScrolled, onClose }: MobileMenuProps) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -8 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="absolute top-0 right-0 left-0 z-50 mt-[80px]"
+        className="absolute top-0 right-0 left-0 z-50 mt-[75px]"
       >
         <motion.div
           initial={false}
           animate={{
             width: isScrolled ? "95%" : "100%",
+            borderRadius: isScrolled ? 10 : 10,
           }}
           transition={{
             duration: 0.3,
             ease: "easeOut",
+            borderRadius: { duration: 0.3 },
           }}
-          className={cn(
-            "mx-auto rounded-lg border border-neutral-300 bg-white/95 p-4 shadow-lg backdrop-blur-md",
-          )}
+          className="mx-auto border border-neutral-300 bg-white/95 p-6 shadow-md"
         >
-          <nav className="max-w-lg">
-            <div className="flex flex-col space-y-6">
+          <nav>
+            <div className="flex flex-col space-y-3">
               {navigationItems.map((item, i) => {
                 const isActive = isItemActive(item.href);
 
@@ -100,10 +99,10 @@ export function MobileMenu({ isOpen, isScrolled, onClose }: MobileMenuProps) {
                       />
                       <motion.span
                         className={cn(
-                          "relative z-10 px-3 py-2.5 text-lg font-medium transition-colors duration-200",
+                          "relative z-10 py-2.5 text-base font-medium transition-colors duration-200",
                           isActive
                             ? "text-primary"
-                            : "group-hover:text-primary text-blue-700",
+                            : "group-hover:text-primary text-neutral-900",
                         )}
                         animate={{
                           x: isActive ? 4 : 0,
@@ -148,10 +147,30 @@ export function MobileMenu({ isOpen, isScrolled, onClose }: MobileMenuProps) {
                 <Link
                   href="/#contact"
                   onClick={onClose}
-                  className="group bg-primary hover:bg-primary/90 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-center text-base font-medium text-white shadow-lg transition-all duration-200 hover:shadow-xl"
+                  className="group bg-primary hover:bg-primary/90 shadow-primary/20 hover:shadow-primary/30 inline-flex w-full items-center justify-center gap-2 rounded-3xl px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg transition-all duration-200 hover:shadow-xl"
                 >
                   Contact Us
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <motion.svg
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    animate={{
+                      x: [0, 4, 0],
+                    }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </motion.svg>
                 </Link>
               </motion.div>
             </div>

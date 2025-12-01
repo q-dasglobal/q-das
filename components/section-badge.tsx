@@ -4,7 +4,7 @@ import type { LucideIcon } from "lucide-react";
 
 interface SectionBadgeProps {
   children: React.ReactNode;
-  icon?: LucideIcon;
+  icon?: LucideIcon | React.ComponentType<{ className?: string }>;
   className?: string;
 }
 

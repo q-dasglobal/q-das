@@ -6,6 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import { cn } from "@/lib/utils";
 import { MobileMenu } from "@/components/layout/mobile-menu";
 import { navigationItems } from "@/lib/data/navigation";
 
@@ -121,11 +122,12 @@ export default function Header() {
         {/* Desktop Navigation */}
         <motion.nav
           variants={headerVariants}
-          className={`relative z-60 hidden flex-row items-center justify-between px-6 transition-all duration-500 ease-in-out lg:flex ${
+          className={cn(
+            "relative z-60 mt-2 hidden w-full max-w-7xl flex-row items-center justify-between rounded-full bg-transparent px-4 transition-all duration-500 ease-in-out md:px-6 lg:flex",
             isScrolled
-              ? "mx-auto mt-6 w-[1058px] rounded-[32px] border border-neutral-300 bg-white/95 backdrop-blur-md"
-              : "w-full rounded-none bg-transparent"
-          }`}
+              ? "mx-auto mt-5 w-[1058px] rounded-[32px] border border-neutral-300 bg-white/95 py-2 backdrop-blur-md"
+              : "bg-transparent",
+          )}
           style={{
             height: "68px",
           }}
@@ -147,16 +149,7 @@ export default function Header() {
               className="group/logo relative z-20 flex items-center gap-3"
               aria-label="Go to homepage"
             >
-              <motion.div
-                className="relative h-32 w-32"
-                whileHover={{ scale: 1.05, rotate: 2 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 400,
-                  damping: 17,
-                }}
-              >
+              <div className="relative h-32 w-32">
                 <Image
                   src="/Logo.png"
                   alt="Q-DAS Global logo"
@@ -165,7 +158,7 @@ export default function Header() {
                   className="object-contain transition-opacity duration-200 group-hover/logo:opacity-90"
                   priority
                 />
-              </motion.div>
+              </div>
             </Link>
           </motion.div>
 
@@ -205,7 +198,7 @@ export default function Header() {
                       layoutId="desktop-active-pill"
                       className={`absolute inset-0 rounded-full transition-colors duration-200 ${
                         isActive
-                          ? "bg-primary/10"
+                          ? "bg-primary/10 border-primary border-l-2"
                           : "group-hover:bg-primary/5 bg-transparent"
                       }`}
                       initial={false}
@@ -252,16 +245,7 @@ export default function Header() {
             aria-label="Header actions"
           >
             {/* Contact Button */}
-            <motion.div
-              whileHover={{ y: -2, scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{
-                type: "spring",
-                stiffness: 400,
-                damping: 17,
-              }}
-              style={{ willChange: "transform" }}
-            >
+            <div>
               <Link
                 href="/#contact"
                 className="bg-primary hover:bg-primary/90 shadow-primary/20 hover:shadow-primary/30 group/contact relative hidden cursor-pointer items-center gap-2 rounded-3xl px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg transition-all duration-200 hover:shadow-xl md:flex"
@@ -290,7 +274,7 @@ export default function Header() {
                   />
                 </motion.svg>
               </Link>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.nav>
       </div>
@@ -307,17 +291,28 @@ export default function Header() {
         <motion.div
           animate={{
             width: isScrolled ? "95%" : "100%",
-            borderRadius: isScrolled && !isMobileMenuOpen ? 32 : 10,
+            borderRadius: isScrolled && !isMobileMenuOpen ? 9999 : 10,
           }}
           transition={{
             duration: shouldReduceMotion ? 0 : 0.5,
-            ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
-            borderRadius: { duration: shouldReduceMotion ? 0 : 0.3 },
+            ease: "easeInOut",
+            borderRadius: { duration: shouldReduceMotion ? 0 : 0.2 },
           }}
           style={{ willChange: "width, border-radius" }}
-          className={`relative z-50 mx-auto flex flex-col items-center justify-between bg-white/95 px-4 py-2 backdrop-blur-md ${
-            isScrolled && "mt-3 border border-neutral-300"
-          } ${isMobileMenuOpen && "border border-neutral-300"}`}
+          className={cn(
+            "relative z-50 mx-auto flex flex-col items-center justify-between px-4 py-2 md:px-6",
+            // Is not scrolled and not open
+            !isScrolled && !isMobileMenuOpen && "bg-transparent py-4",
+            // Is scrolled but open
+            isScrolled && "mt-3 border border-neutral-300",
+            // Is scrolled but not open
+            isScrolled &&
+              !isMobileMenuOpen &&
+              "border-neutral-300 bg-white/95 backdrop-blur-md",
+            // Is open Mobile Menu and Navbar (scrolled or not)
+            isMobileMenuOpen &&
+              "border border-neutral-300 bg-white/95 backdrop-blur-md",
+          )}
         >
           <div className="flex w-full flex-row items-center justify-between">
             <Link
@@ -325,40 +320,22 @@ export default function Header() {
               className="relative z-20 flex items-center gap-3"
               aria-label="Go to homepage"
             >
-              <div className="relative h-8 w-8 shrink-0">
+              <div className="relative h-[32px] w-[98px]">
                 <Image
-                  src="/Logo_1fQDAS2.png"
+                  src="/Logo.png"
                   alt="Q-DAS Global logo"
                   fill
-                  sizes="32px"
+                  sizes="(max-width: 768px) 100px, 148px"
                   className="object-contain"
                   priority
                 />
               </div>
-
-              <span className="flex items-baseline text-base font-semibold whitespace-nowrap text-blue-900">
-                <span>Q-DAS</span>
-                <span className="ml-0.5 text-[10px] leading-none font-normal">
-                  Global
-                </span>
-              </span>
             </Link>
 
-            <div className="flex items-center gap-3">
-              {!isMobileMenuOpen && (
-                <Link
-                  href="#contact"
-                  className="bg-primary-600 hover:bg-primary-700 relative cursor-pointer rounded-3xl px-3 py-2 text-center text-sm font-medium text-white transition-all duration-200"
-                  aria-label="Contact us"
-                >
-                  Contact Us
-                </Link>
-              )}
-              <MobileMenuButton
-                isOpen={isMobileMenuOpen}
-                onClick={toggleMobileMenu}
-              />
-            </div>
+            <MobileMenuButton
+              isOpen={isMobileMenuOpen}
+              onClick={toggleMobileMenu}
+            />
           </div>
         </motion.div>
       </motion.div>

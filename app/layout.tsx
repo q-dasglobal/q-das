@@ -17,7 +17,7 @@ const montserratBody = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Q-DAS Global | Government ICT Solutions",
+  title: "Q-DAS Global",
   description:
     "Q-DAS Global provides innovative ICT solutions for government agencies in Nigeria.",
 };

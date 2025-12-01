@@ -19,6 +19,7 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@q-das": "https://q-das.com/r/{name}.json"
+    "@q-das": "https://q-das.com/r/{name}.json",
+    "@magicui": "https://magicui.design/r/{name}.json"
   }
 }
