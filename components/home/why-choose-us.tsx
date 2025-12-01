@@ -1,11 +1,17 @@
 "use client";
 
 import { motion } from "motion/react";
-import { HiStar } from "react-icons/hi";
-import { HiCube, HiUser, HiTrendingUp, HiCog } from "react-icons/hi";
+import { HiStar, HiCube, HiUser, HiTrendingUp, HiPhone } from "react-icons/hi";
 import { SectionBadge } from "@/components/section-badge";
+import { FeatureCard } from "@/components/shared/feature-card";
 
-const features = [
+type Feature = {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description: string;
+};
+
+const features: Feature[] = [
   {
     icon: HiCube,
     title: "Innovation First",
@@ -25,7 +31,7 @@ const features = [
       "From startups to enterprises, our modular service offerings grow with your business.",
   },
   {
-    icon: HiCog,
+    icon: HiPhone,
     title: "24/7 Support & Reliability",
     description:
       "Round-the-clock service desks, proactive monitoring, and SLA-backed support give you peace of mind.",
@@ -64,36 +70,21 @@ export function WhyChooseUs() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg leading-relaxed text-gray-600 lg:text-xl"
           >
-            QDAS Global combines industry expertise, technology, and vision to
-            give your business the competitive edge it deserves.
+            We combine deep technical expertise with a commitment to
+            understanding your business, delivering solutions that provide
+            measurable value and sustainable competitive advantage.
           </motion.p>
         </div>
 
         <div className="grid gap-8 md:grid-cols-2">
           {features.map((feature, index) => (
-            <motion.div
+            <FeatureCard
               key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="group rounded-2xl bg-white p-8 transition-all hover:shadow-lg"
-            >
-              <div className="mb-6 flex items-center justify-center">
-                <div className="relative">
-                  <div className="bg-primary-light absolute inset-0 rounded-full blur-xl" />
-                  <div className="border-primary/20 bg-primary-light relative rounded-full border-2 p-4">
-                    <feature.icon className="text-primary h-8 w-8" />
-                  </div>
-                </div>
-              </div>
-              <h3 className="font-display mb-3 text-2xl font-bold text-gray-900">
-                {feature.title}
-              </h3>
-              <p className="leading-relaxed text-gray-600">
-                {feature.description}
-              </p>
-            </motion.div>
+              icon={feature.icon}
+              title={feature.title}
+              description={feature.description}
+              index={index}
+            />
           ))}
         </div>
       </div>

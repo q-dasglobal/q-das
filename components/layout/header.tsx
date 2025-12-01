@@ -154,9 +154,10 @@ export default function Header() {
                   src="/Logo.png"
                   alt="Q-DAS Global logo"
                   fill
-                  sizes="(max-width: 768px) 100px, 148px"
+                  sizes="128px"
                   className="object-contain transition-opacity duration-200 group-hover/logo:opacity-90"
                   priority
+                  quality={100}
                 />
               </div>
             </Link>
@@ -325,9 +326,10 @@ export default function Header() {
                   src="/Logo.png"
                   alt="Q-DAS Global logo"
                   fill
-                  sizes="(max-width: 768px) 100px, 148px"
+                  sizes="98px"
                   className="object-contain"
                   priority
+                  quality={100}
                 />
               </div>
             </Link>

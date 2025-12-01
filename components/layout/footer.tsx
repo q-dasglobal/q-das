@@ -33,72 +33,62 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-gray-900 text-white">
+    <footer className="relative overflow-hidden bg-[#1A1615] text-white">
       {/* Large Q-DAS Watermark Background */}
-      <div className="pointer-events-none absolute inset-0 z-0 flex items-center justify-center">
-        <div className="flex items-center gap-4 md:gap-8">
-          <span className="font-display text-[200px] leading-none font-bold text-white opacity-5 md:text-[300px] lg:text-[400px]">
-            Q
-          </span>
-          <span className="font-display text-[200px] leading-none font-bold text-white opacity-5 md:text-[300px] lg:text-[400px]">
-            D
-          </span>
-          <span className="font-display text-[200px] leading-none font-bold text-white opacity-5 md:text-[300px] lg:text-[400px]">
-            A
-          </span>
-          <span className="font-display text-[200px] leading-none font-bold text-white opacity-5 md:text-[300px] lg:text-[400px]">
-            S
-          </span>
-        </div>
+      <div className="pointer-events-none absolute right-0 bottom-0 left-0 z-0 flex justify-center overflow-hidden">
+        <span className="font-display translate-y-[30%] text-[40vw] leading-none font-bold whitespace-nowrap text-white/2 md:translate-y-[45%] md:text-[35vw]">
+          Q-DAS
+        </span>
       </div>
 
       {/* Footer Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12">
-        {/* Top Section: Logo, Navigation, Social */}
-        <div className="mb-8 flex flex-col items-center justify-between gap-8 md:flex-row">
-          {/* Logo */}
-          <Link
-            href="/"
-            className="group/logo flex items-center gap-3"
-            aria-label="Go to homepage"
-          >
-            <div className="relative h-12 w-12 shrink-0 md:h-16 md:w-16">
-              <Image
-                src="/Logo.png"
-                alt="Q-DAS Global logo"
-                fill
-                sizes="(max-width: 768px) 48px, 64px"
-                className="object-contain transition-opacity duration-200 group-hover/logo:opacity-90"
-              />
-            </div>
-            <div className="flex flex-col">
-              <span className="text-xl font-bold text-white md:text-2xl">
-                Q-DAS
-              </span>
-              <span className="text-xs text-gray-400 md:text-sm">Global</span>
-            </div>
-          </Link>
+      <div className="relative z-10 container mx-auto px-6 pt-16 pb-20 md:px-12 md:pb-60">
+        <div className="flex flex-col items-center justify-between gap-10 md:flex-row md:items-start">
+          {/* Left: Logo */}
+          <div className="flex shrink-0 items-center">
+            <Link
+              href="/"
+              className="group/logo flex items-center gap-3"
+              aria-label="Go to homepage"
+            >
+              <div className="relative h-12 w-36 shrink-0">
+                <Image
+                  src="/Logo-dark.webp"
+                  alt="Q-DAS Global logo"
+                  fill
+                  sizes="(max-width: 768px) 144px, 144px"
+                  quality={100}
+                  className="object-contain transition-opacity duration-200 group-hover/logo:opacity-90"
+                />
+              </div>
+            </Link>
+          </div>
 
-          {/* Navigation Menu */}
-          <nav
-            className="flex flex-wrap items-center justify-center gap-6 md:gap-8"
-            aria-label="Footer navigation"
-          >
-            {navigationItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm font-medium text-gray-300 transition-colors hover:text-white md:text-base"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </nav>
+          {/* Center: Navigation & Copyright */}
+          <div className="flex flex-col items-center gap-6 md:mt-2">
+            <nav
+              className="flex flex-wrap items-center justify-center gap-6 md:gap-10"
+              aria-label="Footer navigation"
+            >
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm font-medium text-gray-300 transition-colors hover:text-white md:text-base"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+            <p className="text-xs text-gray-500 md:text-sm">
+              Copyright {currentYear} Q-das Global Group
+            </p>
+          </div>
 
-          {/* Social Media Icons */}
-          <div className="flex items-center gap-4">
+          {/* Right: Social Media Icons */}
+          <div className="flex shrink-0 items-center gap-5 md:mt-2">
             {socialLinks.map((social) => (
-              <a
+              <Link
                 key={social.name}
                 href={social.href}
                 target="_blank"
@@ -107,16 +97,9 @@ export default function Footer() {
                 aria-label={social.name}
               >
                 <social.icon className="h-5 w-5 md:h-6 md:w-6" />
-              </a>
+              </Link>
             ))}
           </div>
-        </div>
-
-        {/* Bottom Section: Copyright */}
-        <div className="border-t border-gray-800 pt-8 text-center">
-          <p className="text-sm text-gray-400 md:text-base">
-            Copyright {currentYear} Q-DAS Global Group. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>
