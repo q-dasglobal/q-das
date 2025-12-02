@@ -29,7 +29,7 @@ export function FeatureCard({
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className={cn("group", className)}
     >
-      <div className="hover:shadow-primary-light relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-[#F9F9F9] p-8 transition-all duration-500 hover:border-gray-500 hover:shadow-lg md:p-10">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-gray-200 bg-gray-50 p-8 transition-all duration-500 hover:border-gray-500 md:p-10">
         {/* Icon Container */}
         <div className="mb-6 flex items-center">
           <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#EBF6FF] md:h-[100px] md:w-[100px]">

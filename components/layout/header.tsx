@@ -248,7 +248,7 @@ export default function Header() {
             {/* Contact Button */}
             <div>
               <Link
-                href="/#contact"
+                href="/contact"
                 className="bg-primary hover:bg-primary/90 shadow-primary/20 hover:shadow-primary/30 group/contact relative hidden cursor-pointer items-center gap-2 rounded-3xl px-5 py-2.5 text-center text-sm font-medium text-white shadow-lg transition-all duration-200 hover:shadow-xl md:flex"
                 aria-label="Contact us"
               >

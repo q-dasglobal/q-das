@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "motion/react";
 import { HiChat, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { SectionBadge } from "@/components/section-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@/components/ui/separator";
 
 type Testimonial = {
   quote: string;
@@ -279,10 +278,7 @@ export function Testimonials() {
                       <span className="text-base font-bold text-gray-900 md:text-xl">
                         {currentTestimonial.author}
                       </span>
-                      <Separator
-                        orientation="vertical"
-                        className="h-6 w-px bg-gray-900"
-                      />
+                      <div className="h-4 w-px bg-gray-900" />
                       <span className="text-sm text-gray-600 md:text-base">
                         {currentTestimonial.role}
                       </span>

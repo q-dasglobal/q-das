@@ -75,7 +75,7 @@ export function FAQ() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-lg leading-relaxed text-gray-600"
+            className="text-base leading-relaxed text-gray-600 md:text-lg"
           >
             Everything you need to know about our services, process, and how we
             deliver value to your organization.
@@ -97,7 +97,7 @@ export function FAQ() {
                   className="group data-[state=open]:border-primary/20 bg-primary-light/50 overflow-hidden rounded-[20px] border border-transparent transition-all duration-300 data-[state=open]:bg-white"
                 >
                   <AccordionTrigger className="px-6 text-left hover:no-underline md:px-8">
-                    <span className="font-display group-data-[state=open]:text-primary mr-4 text-lg font-semibold text-gray-900 transition-colors">
+                    <span className="font-display group-data-[state=open]:text-primary mr-4 text-base font-semibold text-gray-900 transition-colors md:text-lg">
                       {faq.question}
                     </span>
                   </AccordionTrigger>
