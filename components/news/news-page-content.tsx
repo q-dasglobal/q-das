@@ -188,7 +188,7 @@ export function NewsContent() {
 
               {/* Main Article Grid */}
               <div>
-                <div className="mb-8 flex items-center justify-between border-b border-gray-100 pb-4">
+                <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-4">
                   <h3 className="text-2xl font-bold text-gray-900">
                     Latest News
                   </h3>
