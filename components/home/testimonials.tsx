@@ -6,60 +6,63 @@ import { motion, AnimatePresence } from "motion/react";
 import { HiChat, HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { SectionBadge } from "@/components/section-badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import type { Testimonial } from "@/lib/types/testimonial";
 
-type Testimonial = {
-  quote: string;
-  author: string;
-  role: string;
-  avatar: string;
-};
+interface TestimonialsProps {
+  testimonials: Testimonial[];
+}
 
-const testimonials: Testimonial[] = [
-  {
-    quote:
-      "Q-DAS transformed our vision into a fully functional app ahead of schedule. Their team's expertise and dedication made all the difference in launching our product successfully.",
-    author: "Ololade Kevin",
-    role: "CEO of Greentech",
-    avatar:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces&auto=format&q=80",
-  },
-  {
-    quote:
-      "The infrastructure solutions provided by Q-DAS have been game-changing for our operations. Their 24/7 support gives us complete peace of mind.",
-    author: "Michael Adebayo",
-    role: "CTO of TechCorp",
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces&auto=format&q=80",
-  },
-  {
-    quote:
-      "Working with Q-DAS has been an exceptional experience. Their client-centric approach and innovative solutions have helped us scale our business significantly.",
-    author: "Sarah Johnson",
-    role: "Director of Operations",
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=faces&auto=format&q=80",
-  },
-  {
-    quote:
-      "The level of detail and strategic thinking Q-DAS brings to the table is unmatched. They truly understand what it takes to build a successful digital product.",
-    author: "David Chen",
-    role: "Founder of StartUp X",
-    avatar:
-      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces&auto=format&q=80",
-  },
-  {
-    quote:
-      "From concept to execution, Q-DAS delivered excellence. Their team is responsive, skilled, and a pleasure to work with.",
-    author: "Emily Davis",
-    role: "VP of Marketing",
-    avatar:
-      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=faces&auto=format&q=80",
-  },
-];
-
-export function Testimonials() {
+export function Testimonials({ testimonials = [] }: TestimonialsProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
+
+  if (!testimonials || testimonials.length === 0) {
+    return (
+      <section className="relative overflow-hidden py-12 lg:py-32">
+        {/* Background 3D shape image - Reused from Hero */}
+        <div className="absolute inset-0 z-0 h-full w-full">
+          <Image
+            src="/shape-light-hero.webp"
+            alt="Abstract 3D glass rings"
+            fill
+            className="object-cover object-center opacity-60"
+            quality={100}
+            sizes="100vw"
+          />
+        </div>
+
+        {/* Base Gradient Overlay */}
+        <div
+          className="absolute inset-0 z-1"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(245, 249, 255, 0.6) 0%, rgba(245, 249, 255, 0.4) 50%, rgba(245, 249, 255, 0.6) 100%)",
+          }}
+        />
+
+        <div className="relative z-10 container mx-auto px-4 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="mx-auto max-w-2xl"
+          >
+            <SectionBadge icon={HiChat}>Testimonials</SectionBadge>
+            <h2 className="font-display mt-6 mb-4 text-3xl leading-tight font-bold text-gray-900 lg:text-4xl">
+              Success Stories Coming Soon
+            </h2>
+            <p className="mb-8 text-lg text-gray-600">
+              We are currently curating stories from our partners and clients.
+              Check back soon to read about their experiences working with Q-DAS
+              Global.
+            </p>
+            <div className="bg-primary/20 mx-auto h-1 w-20 rounded-full" />
+          </motion.div>
+        </div>
+      </section>
+    );
+  }
 
   const nextTestimonial = () => {
     setDirection(1);
@@ -240,12 +243,12 @@ export function Testimonials() {
                       >
                         <Avatar className="h-full w-full">
                           <AvatarImage
-                            src={testimonial.avatar}
-                            alt={testimonial.author}
+                            src={testimonial.avatar || ""}
+                            alt={testimonial.name}
                             className="object-cover"
                           />
                           <AvatarFallback>
-                            {testimonial.author.charAt(0)}
+                            {testimonial.name.charAt(0)}
                           </AvatarFallback>
                         </Avatar>
                       </div>
@@ -271,12 +274,12 @@ export function Testimonials() {
                     className="flex flex-col items-center"
                   >
                     <blockquote className="mb-6 text-lg leading-relaxed font-bold text-gray-900 md:mb-8 md:text-2xl">
-                      &ldquo;{currentTestimonial.quote}&rdquo;
+                      &ldquo;{currentTestimonial.content}&rdquo;
                     </blockquote>
 
                     <div className="flex flex-row items-center gap-3">
                       <span className="text-base font-bold text-gray-900 md:text-xl">
-                        {currentTestimonial.author}
+                        {currentTestimonial.name}
                       </span>
                       <div className="h-4 w-px bg-gray-900" />
                       <span className="text-sm text-gray-600 md:text-base">

@@ -10,10 +10,11 @@ This is a Next.js-based corporate website featuring a modern design system, resp
 
 - **Modern UI/UX**: Built with Tailwind CSS and Shadcn UI components for a polished, accessible interface
 - **Responsive Design**: Mobile-first approach ensuring optimal experience across all devices
-- **Performance Optimized**: Server-side rendering, image optimization, and code splitting
+- **Performance Optimized**: Server-side rendering, ISR, image optimization, and code splitting
 - **Type Safety**: Full TypeScript implementation with strict type checking
 - **SEO Optimized**: Metadata, Open Graph, and Twitter card support
-- **Dark Mode**: Theme switching capability with next-themes
+- **CMS Integration**: Sanity CMS with embedded Studio for content management
+- **Email Service**: Resend integration for contact form submissions
 - **Form Validation**: Contact forms with Zod schema validation and React Hook Form
 - **Accessibility**: WCAG-compliant components using Radix UI primitives
 - **Animation**: Smooth transitions and micro-interactions using Motion library
@@ -33,6 +34,13 @@ This is a Next.js-based corporate website featuring a modern design system, resp
 - **Radix UI** - Unstyled, accessible component primitives
 - **Lucide React** - Icon library
 - **Motion** - Animation library
+
+### Content Management & Email
+
+- **Sanity CMS** - Headless CMS for news and team content
+- **Sanity Studio** - Embedded content editor at `/admin`
+- **Resend** - Email service for contact form submissions
+- **@portabletext/react** - Rich text content rendering
 
 ### Forms & Validation
 
@@ -62,27 +70,76 @@ git clone <repository-url>
 cd q-das
 ```
 
-1. Install dependencies:
+2. Install dependencies:
 
 ```bash
 pnpm install
-# or
-npm install
-# or
-yarn install
 ```
 
-1. Run the development server:
+3. Set up environment variables:
+
+Create a `.env.local` file in the root directory:
+
+```env
+# Sanity CMS
+NEXT_PUBLIC_SANITY_PROJECT_ID=your-project-id
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_TOKEN=your-write-token
+
+# Resend Email
+RESEND_API_KEY=re_your_api_key
+RESEND_FROM_EMAIL=contact@q-das-global.com
+RESEND_TO_EMAIL=info@q-das-global.com
+```
+
+**Getting Credentials:**
+
+- **Sanity**: Sign up at [sanity.io](https://sanity.io), create a project, get credentials from dashboard
+- **Resend**: Sign up at [resend.com](https://resend.com), get API key from dashboard
+
+4. Run the development server:
 
 ```bash
 pnpm dev
-# or
-npm run dev
-# or
-yarn dev
 ```
 
-1. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+6. Access Sanity Studio at [http://localhost:3000/admin](http://localhost:3000/admin) to manage content.
+
+## Content Management
+
+### Sanity Studio
+
+Access the embedded Sanity Studio at `/admin` to manage:
+
+- **News Articles**: Create, edit, and publish news with rich text content
+- **Team Members**: Manage team profiles with images and roles
+- **Authors**: Add and manage article authors
+
+### Data Migration
+
+To migrate existing static content to Sanity:
+
+```bash
+npx tsx scripts/migrate-to-sanity.ts
+```
+
+**Note:** Images cannot be auto-migrated. After running the script:
+
+1. Go to http://localhost:3000/admin
+2. Upload images for each news article and team member
+3. Review and publish all content
+
+### Email Configuration
+
+For production, set up a custom domain with Resend (free):
+
+1. Log into Resend dashboard
+2. Add your domain (e.g., `q-das-global.com`)
+3. Add DNS records (SPF, DKIM, Return-path) to your domain provider
+4. Verify domain in Resend
+5. Update `RESEND_FROM_EMAIL` in `.env.local`
 
 ## Available Scripts
 

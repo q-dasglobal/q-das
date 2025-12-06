@@ -1,4 +1,4 @@
-import { newsArticles } from "@/lib/data/news";
+import { getNewsArticles, getNewsArticle } from "@/lib/sanity/fetch";
 import { ContactSection } from "@/components/shared/contact-section";
 import { ArticleContent } from "@/components/news/article-content";
 import {
@@ -11,12 +11,13 @@ import {
 } from "react-icons/hi";
 import { FaLinkedin, FaFacebook } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
+import { urlFor } from "@/lib/sanity/image";
 
 interface NewsDetailProps {
   params: Promise<{
@@ -24,8 +25,12 @@ interface NewsDetailProps {
   }>;
 }
 
+// ISR: Revalidate every 60 seconds
+export const revalidate = 60;
+
 export async function generateStaticParams() {
-  return newsArticles.map((article) => ({
+  const articles = await getNewsArticles();
+  return articles.map((article) => ({
     slug: article.slug,
   }));
 }
@@ -34,7 +39,7 @@ export async function generateMetadata({
   params,
 }: NewsDetailProps): Promise<Metadata> {
   const { slug } = await params;
-  const article = newsArticles.find((a) => a.slug === slug);
+  const article = await getNewsArticle(slug);
   if (!article)
     return {
       title: "Article Not Found | Q-DAS Global",
@@ -61,13 +66,14 @@ export async function generateMetadata({
 
 export default async function NewsDetailPage({ params }: NewsDetailProps) {
   const { slug } = await params;
-  const article = newsArticles.find((a) => a.slug === slug);
+  const article = await getNewsArticle(slug);
 
   if (!article) {
     notFound();
   }
 
-  const relatedArticles = newsArticles
+  const allArticles = await getNewsArticles();
+  const relatedArticles = allArticles
     .filter((a) => a.id !== article.id)
     .slice(0, 3);
 
@@ -118,7 +124,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
                     <div className="flex items-center gap-2 text-gray-900 lg:text-gray-600">
                       <HiOutlineCalendar className="text-primary h-4 w-4 lg:text-current" />
                       <span className="text-sm font-medium lg:font-normal">
-                        {article.date}
+                        {formatDate(article.date)}
                       </span>
                     </div>
                   </div>
@@ -205,8 +211,12 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
             <div className="lg:col-span-9">
               {/* Hero Image */}
               <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl shadow-sm md:rounded-3xl lg:mb-12">
-                <Image
-                  src={article.image}
+                <ImageWithFallback
+                  src={
+                    article.mainImage
+                      ? urlFor(article.mainImage).width(1200).height(675).url()
+                      : article.image
+                  }
                   alt={article.title}
                   fill
                   className="object-cover"
@@ -245,8 +255,12 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
                   className="group flex flex-col gap-4"
                 >
                   <div className="relative aspect-3/2 w-full overflow-hidden rounded-xl bg-gray-100">
-                    <Image
-                      src={item.image}
+                    <ImageWithFallback
+                      src={
+                        item.mainImage
+                          ? urlFor(item.mainImage).width(600).height(400).url()
+                          : item.image
+                      }
                       alt={item.title}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -258,7 +272,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
                         {item.category}
                       </span>
                       <span>•</span>
-                      <span>{item.date}</span>
+                      <span>{formatDate(item.date)}</span>
                     </div>
                     <h3 className="font-display group-hover:text-primary mb-2 text-lg leading-snug font-bold text-gray-900 transition-colors">
                       {item.title}

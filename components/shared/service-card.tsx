@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { HiArrowRight } from "react-icons/hi";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
@@ -37,7 +37,7 @@ export function ServiceCard({
       >
         {/* Image Container */}
         <div className="relative z-10 mb-8 aspect-video w-full overflow-hidden rounded-2xl">
-          <Image
+          <ImageWithFallback
             src={image}
             alt={title}
             fill

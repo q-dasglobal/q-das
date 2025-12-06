@@ -3,6 +3,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { ContactSection } from "@/components/shared/contact-section";
 import { TeamContent } from "@/components/team/team-content";
 import { LeadershipValues } from "@/components/team/leadership-values";
+import { getTeamMembers } from "@/lib/sanity/fetch";
 
 export const metadata: Metadata = {
   title: "Our Team | Q-DAS Global",
@@ -29,7 +30,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function TeamPage() {
+// ISR: Revalidate every hour (team changes infrequently)
+export const revalidate = 3600;
+
+export default async function TeamPage() {
+  const members = await getTeamMembers();
+
   return (
     <main className="flex-1">
       <PageHeader
@@ -43,7 +49,7 @@ export default function TeamPage() {
         description="Our leadership blends expertise, passion, and vision to drive Q-DAS' sustainable growth and innovation."
         icon="userGroup"
       />
-      <TeamContent />
+      <TeamContent members={members} />
       <LeadershipValues />
       <ContactSection />
     </main>

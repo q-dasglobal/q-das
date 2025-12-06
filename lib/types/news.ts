@@ -1,5 +1,6 @@
 export interface PortableTextSpan {
   _type: "span";
+  _key?: string;
   text: string;
   marks?: string[];
 }
@@ -15,6 +16,7 @@ export interface PortableTextBlock {
 
 export interface SanityImage {
   _type: "image";
+  _key?: string;
   asset: {
     _ref: string;
     _type: "reference";
@@ -26,6 +28,7 @@ export interface SanityImage {
 
 export interface CodeBlock {
   _type: "codeBlock";
+  _key?: string;
   language: string;
   filename?: string;
   code: string;
@@ -34,8 +37,9 @@ export interface CodeBlock {
 
 export interface Table {
   _type: "table";
+  _key?: string;
   headers: string[];
-  rows: { cells: string[] }[];
+  rows: { _key?: string; cells: string[] }[];
   caption?: string;
 }
 

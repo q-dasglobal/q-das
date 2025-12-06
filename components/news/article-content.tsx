@@ -7,26 +7,13 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { HiCheck, HiClipboard, HiExternalLink } from "react-icons/hi";
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import type {
   NewsPortableText,
   CodeBlock,
   SanityImage,
 } from "@/lib/types/news";
-
-// Mock urlFor since we don't have the real Sanity client yet
-const urlFor = (source: SanityImage) => {
-  return {
-    width: (_w: number) => ({
-      height: (_h: number) => ({
-        url: () => {
-          // In our mock data, we'll store the direct URL in _ref for simplicity
-          return source.asset._ref;
-        },
-      }),
-    }),
-  };
-};
+import { urlFor } from "@/lib/sanity/image";
 
 interface ArticleContentProps {
   content: NewsPortableText;
@@ -127,7 +114,7 @@ export function ArticleContent({
           return (
             <div className="my-8 overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
               <div className="relative aspect-video w-full bg-gray-100">
-                <Image
+                <ImageWithFallback
                   src={imageUrl}
                   alt={alt || ""}
                   fill

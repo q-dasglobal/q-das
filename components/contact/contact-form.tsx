@@ -26,17 +26,35 @@ export function ContactForm({ className }: { className?: string }) {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
-    // TODO: Integrate with email service or API endpoint
-    console.log("Form Data:", data);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    // Simulate network request
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+      const result = await response.json();
 
-    toast.success("Message sent successfully!", {
-      description: "We'll get back to you as soon as possible.",
-    });
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send message");
+      }
 
-    reset();
+      toast.success("Message sent successfully!", {
+        description: "We'll get back to you as soon as possible.",
+      });
+
+      reset();
+    } catch (error) {
+      console.error("Contact form error:", error);
+      toast.error("Failed to send message", {
+        description:
+          error instanceof Error
+            ? error.message
+            : "Please try again later or contact us directly.",
+      });
+    }
   };
 
   return (

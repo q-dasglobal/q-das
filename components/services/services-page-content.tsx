@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import { HiCheck } from "react-icons/hi";
 import { cn } from "@/lib/utils";
 import { services } from "@/lib/data/services";
@@ -68,7 +68,7 @@ export function ServicesContent() {
 
                     {/* Illustration */}
                     <div className="relative mx-auto aspect-square w-full max-w-[240px] md:max-w-[320px]">
-                      <Image
+                      <ImageWithFallback
                         src={service.image}
                         alt={service.title}
                         fill

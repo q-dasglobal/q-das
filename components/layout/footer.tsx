@@ -3,31 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { navigationItems } from "@/lib/data/navigation";
-import { HiOutlineMail } from "react-icons/hi";
-import { FaInstagram, FaFacebook, FaXTwitter } from "react-icons/fa6";
-
-const socialLinks = [
-  {
-    name: "Instagram",
-    icon: FaInstagram,
-    href: "https://instagram.com/qdasglobal",
-  },
-  {
-    name: "Facebook",
-    icon: FaFacebook,
-    href: "https://facebook.com/qdasglobal",
-  },
-  {
-    name: "Twitter",
-    icon: FaXTwitter,
-    href: "https://twitter.com/qdasglobal",
-  },
-  {
-    name: "Email",
-    icon: HiOutlineMail,
-    href: "mailto:info@qdasglobal.com",
-  },
-];
+import { socialLinks } from "@/lib/data/social";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

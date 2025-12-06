@@ -2,13 +2,14 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
+import { ImageWithFallback } from "@/components/shared/image-with-fallback";
 import Link from "next/link";
-import { NewsArticle, newsArticles } from "@/lib/data/news";
-import { cn } from "@/lib/utils";
+import { NewsArticle } from "@/lib/data/news";
+import { cn, formatDate } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { HiSearch, HiCalendar } from "react-icons/hi";
+import { urlFor } from "@/lib/sanity/image";
 
 const categories: NewsArticle["category"][] = [
   "All",
@@ -19,12 +20,16 @@ const categories: NewsArticle["category"][] = [
   "Press",
 ];
 
-export function NewsContent() {
+interface NewsContentProps {
+  articles: NewsArticle[];
+}
+
+export function NewsContent({ articles }: NewsContentProps) {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
   // Filter news based on category and search query
-  const filteredNews = newsArticles.filter((article) => {
+  const filteredNews = articles.filter((article) => {
     const matchesCategory =
       activeCategory === "All" || article.category === activeCategory;
     const matchesSearch =
@@ -35,9 +40,9 @@ export function NewsContent() {
 
   // Hero Grid Logic
   // 1. Get featured articles (or fallback to latest if none marked featured)
-  const featuredArticles = newsArticles.filter((a) => a.featured);
+  const featuredArticles = articles.filter((a) => a.featured);
   const heroCandidates =
-    featuredArticles.length >= 3 ? featuredArticles : newsArticles.slice(0, 3);
+    featuredArticles.length >= 3 ? featuredArticles : articles.slice(0, 3);
 
   const mainHeroArticle = heroCandidates[0];
   const subHeroArticles = heroCandidates.slice(1, 3);
@@ -122,8 +127,15 @@ export function NewsContent() {
                     className="group relative block overflow-hidden rounded-2xl bg-gray-900 lg:col-span-2 lg:row-span-2"
                   >
                     <div className="relative h-full min-h-[400px] w-full lg:min-h-[500px]">
-                      <Image
-                        src={mainHeroArticle.image}
+                      <ImageWithFallback
+                        src={
+                          mainHeroArticle.mainImage?.asset
+                            ? urlFor(mainHeroArticle.mainImage)
+                                .width(1200)
+                                .height(800)
+                                .url()
+                            : mainHeroArticle.image
+                        }
                         alt={mainHeroArticle.title}
                         fill
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -137,7 +149,7 @@ export function NewsContent() {
                           </span>
                           <span className="flex items-center gap-1">
                             <HiCalendar className="h-3 w-3" />
-                            {mainHeroArticle.date}
+                            {formatDate(mainHeroArticle.date)}
                           </span>
                         </div>
                         <h2 className="font-display mb-3 text-2xl leading-tight font-bold text-white md:text-4xl lg:text-5xl">
@@ -159,8 +171,15 @@ export function NewsContent() {
                         className="group relative flex-1 overflow-hidden rounded-2xl bg-gray-900"
                       >
                         <div className="relative h-full min-h-[240px] w-full">
-                          <Image
-                            src={article.image}
+                          <ImageWithFallback
+                            src={
+                              article.mainImage?.asset
+                                ? urlFor(article.mainImage)
+                                    .width(600)
+                                    .height(400)
+                                    .url()
+                                : article.image
+                            }
                             alt={article.title}
                             fill
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -173,7 +192,7 @@ export function NewsContent() {
                                 {article.category}
                               </span>
                               <span>•</span>
-                              <span>{article.date}</span>
+                              <span>{formatDate(article.date)}</span>
                             </div>
                             <h3 className="font-display line-clamp-2 text-lg leading-snug font-bold text-white md:text-xl">
                               {article.title}
@@ -201,8 +220,15 @@ export function NewsContent() {
                       className="group flex flex-col gap-4"
                     >
                       <div className="relative aspect-3/2 w-full overflow-hidden rounded-xl bg-gray-100">
-                        <Image
-                          src={article.image}
+                        <ImageWithFallback
+                          src={
+                            article.mainImage?.asset
+                              ? urlFor(article.mainImage)
+                                  .width(600)
+                                  .height(400)
+                                  .url()
+                              : article.image
+                          }
                           alt={article.title}
                           fill
                           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -214,7 +240,7 @@ export function NewsContent() {
                             {article.category}
                           </span>
                           <span>•</span>
-                          <span>{article.date}</span>
+                          <span>{formatDate(article.date)}</span>
                         </div>
                         <h3 className="font-display group-hover:text-primary mb-2 text-lg leading-snug font-bold text-gray-900 transition-colors">
                           {article.title}

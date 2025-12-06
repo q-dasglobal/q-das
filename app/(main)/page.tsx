@@ -8,6 +8,7 @@ import {
   FAQ,
 } from "@/components/home";
 import { ContactSection } from "@/components/shared/contact-section";
+import { getTestimonials } from "@/lib/sanity/fetch";
 
 export const metadata: Metadata = {
   title: "Q-DAS Global | Leading ICT Solutions in Nigeria",
@@ -38,14 +39,16 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const testimonials = await getTestimonials(); // Fetch data from sanity
+
   return (
     <main className="flex-1">
       <Hero />
       <Partnerships />
       <Services />
       <WhyChooseUs />
-      <Testimonials />
+      <Testimonials testimonials={testimonials} />
       <FAQ />
       <ContactSection />
     </main>
