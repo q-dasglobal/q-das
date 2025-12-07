@@ -1,15 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { validateTurnstileToken } from "next-turnstile";
 import { contactFormSchema } from "@/lib/schemas/contact";
 import { ContactEmail } from "@/lib/email/templates/contact-email";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const isDev = process.env.NODE_ENV === "development";
 
 export async function POST(request: NextRequest) {
   try {
-    // Parse and validate request body
+    // Parse request body
     const body = await request.json();
-    const validatedData = contactFormSchema.parse(body);
+
+    // Extract Turnstile token
+    const { turnstileToken, ...formData } = body;
+
+    // Validate Turnstile token
+    if (!turnstileToken || typeof turnstileToken !== "string") {
+      return NextResponse.json(
+        { error: "Verification failed. Please try again." },
+        { status: 400 },
+      );
+    }
+
+    // Validate token with Cloudflare (sandbox mode in development)
+    const turnstileResult = await validateTurnstileToken({
+      token: turnstileToken,
+      secretKey: process.env.TURNSTILE_SECRET_KEY!,
+      sandbox: isDev, // Bypass validation in development
+    });
+
+    if (!turnstileResult.success) {
+      console.error(
+        "Turnstile validation failed:",
+        turnstileResult.error_codes,
+      );
+      return NextResponse.json(
+        { error: "Verification failed. Please refresh and try again." },
+        { status: 400 },
+      );
+    }
+
+    // Validate form data with Zod
+    const validatedData = contactFormSchema.parse(formData);
 
     // Send email using Resend
     const { data, error } = await resend.emails.send({
@@ -17,7 +50,7 @@ export async function POST(request: NextRequest) {
       to: process.env.RESEND_TO_EMAIL || "delivered@resend.dev",
       replyTo: validatedData.email,
       subject: `New Contact Form Submission from ${validatedData.name}`,
-      react: await ContactEmail({
+      react: ContactEmail({
         name: validatedData.name,
         email: validatedData.email,
         description: validatedData.description,

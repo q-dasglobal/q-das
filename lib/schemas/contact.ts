@@ -6,6 +6,7 @@ export const contactFormSchema = z.object({
   description: z
     .string()
     .min(10, { message: "Description must be at least 10 characters." }),
+  turnstileToken: z.string().optional(), // Optional for backward compatibility
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;

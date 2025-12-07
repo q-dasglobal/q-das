@@ -1,4 +1,18 @@
-import * as React from "react";
+import {
+  Body,
+  Container,
+  Head,
+  Heading,
+  Hr,
+  Html,
+  Img,
+  Link,
+  Preview,
+  Section,
+  Text,
+  Tailwind,
+  pixelBasedPreset,
+} from "@react-email/components";
 
 interface ContactEmailProps {
   name: string;
@@ -6,223 +20,107 @@ interface ContactEmailProps {
   description: string;
 }
 
+const baseUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "";
+
 export function ContactEmail({ name, email, description }: ContactEmailProps) {
+  const previewText = `New message from ${name}`;
+
   return (
-    <html>
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      </head>
-      <body
-        style={{
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif',
-          backgroundColor: "#f9fafb",
-          margin: 0,
-          padding: 0,
+    <Html>
+      <Head />
+      <Tailwind
+        config={{
+          presets: [pixelBasedPreset],
         }}
       >
-        <table
-          width="100%"
-          cellPadding="0"
-          cellSpacing="0"
-          style={{
-            backgroundColor: "#f9fafb",
-            padding: "40px 20px",
-          }}
-        >
-          <tr>
-            <td align="center">
-              <table
-                width="600"
-                cellPadding="0"
-                cellSpacing="0"
+        <Body className="mx-auto my-auto bg-white px-2 font-sans">
+          <Preview>{previewText}</Preview>
+          <Container className="mx-auto my-[40px] max-w-[520px] rounded border border-solid border-[#eaeaea] p-[20px]">
+            {/* Logo */}
+            <Section className="mt-[32px]">
+              <Img
+                src="https://res.cloudinary.com/dy55vopm2/image/upload/v1765117017/Logo_lvl2bf.png"
+                width="180"
+                alt="Q-DAS Global"
+                className="mx-auto my-0"
                 style={{
-                  backgroundColor: "#ffffff",
-                  borderRadius: "12px",
-                  boxShadow: "0 4px 6px rgba(0, 0, 0, 0.05)",
-                  overflow: "hidden",
+                  display: "block",
+                  outline: "none",
+                  border: "none",
+                  textDecoration: "none",
+                  margin: "0 auto",
+                  height: "auto",
                 }}
+              />
+            </Section>
+
+            {/* Title */}
+            <Heading className="mx-0 my-[30px] p-0 text-center text-[24px] font-normal text-black">
+              New Contact Form Submission
+            </Heading>
+
+            {/* Intro */}
+            <Text className="text-[14px] leading-[24px] text-black">
+              You have received a new message from your website contact form.
+            </Text>
+
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+
+            {/* Sender Info */}
+            <Text className="text-[12px] font-semibold tracking-wide text-[#666666] uppercase">
+              From
+            </Text>
+            <Text className="m-0 text-[16px] leading-[24px] font-medium text-black">
+              {name}
+            </Text>
+            <Link
+              href={`mailto:${email}`}
+              className="text-[14px] text-[#0070f3] no-underline"
+            >
+              {email}
+            </Link>
+
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+
+            {/* Message */}
+            <Text className="text-[12px] font-semibold tracking-wide text-[#666666] uppercase">
+              Message
+            </Text>
+            <Text className="text-[14px] leading-[24px] text-black">
+              {description}
+            </Text>
+
+            <Hr className="mx-0 my-[26px] w-full border border-solid border-[#eaeaea]" />
+
+            {/* Footer */}
+            <Text className="text-[12px] leading-[24px] text-[#666666]">
+              This message was sent from the{" "}
+              <Link
+                href={`${baseUrl}/contact`}
+                className="text-[#0070f3] no-underline"
               >
-                {/* Header */}
-                <tr>
-                  <td
-                    style={{
-                      background:
-                        "linear-gradient(135deg, #0066CC 0%, #0052A3 100%)",
-                      padding: "40px 40px 30px",
-                      textAlign: "center",
-                    }}
-                  >
-                    <h1
-                      style={{
-                        color: "#ffffff",
-                        fontSize: "28px",
-                        fontWeight: "bold",
-                        margin: "0 0 10px",
-                      }}
-                    >
-                      New Contact Form Submission
-                    </h1>
-                    <p
-                      style={{
-                        color: "rgba(255, 255, 255, 0.9)",
-                        fontSize: "16px",
-                        margin: 0,
-                      }}
-                    >
-                      Q-DAS Global Website
-                    </p>
-                  </td>
-                </tr>
-
-                {/* Content */}
-                <tr>
-                  <td style={{ padding: "40px" }}>
-                    {/* From Section */}
-                    <div style={{ marginBottom: "30px" }}>
-                      <h2
-                        style={{
-                          color: "#111827",
-                          fontSize: "18px",
-                          fontWeight: "600",
-                          margin: "0 0 16px",
-                          borderBottom: "2px solid #e5e7eb",
-                          paddingBottom: "8px",
-                        }}
-                      >
-                        Contact Information
-                      </h2>
-                      <table width="100%" cellPadding="0" cellSpacing="0">
-                        <tr>
-                          <td
-                            style={{
-                              padding: "12px 0",
-                              borderBottom: "1px solid #f3f4f6",
-                            }}
-                          >
-                            <strong
-                              style={{
-                                color: "#6b7280",
-                                fontSize: "14px",
-                                fontWeight: "500",
-                                display: "inline-block",
-                                width: "80px",
-                              }}
-                            >
-                              Name:
-                            </strong>
-                            <span
-                              style={{
-                                color: "#111827",
-                                fontSize: "16px",
-                                fontWeight: "500",
-                              }}
-                            >
-                              {name}
-                            </span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style={{ padding: "12px 0" }}>
-                            <strong
-                              style={{
-                                color: "#6b7280",
-                                fontSize: "14px",
-                                fontWeight: "500",
-                                display: "inline-block",
-                                width: "80px",
-                              }}
-                            >
-                              Email:
-                            </strong>
-                            <a
-                              href={`mailto:${email}`}
-                              style={{
-                                color: "#0066CC",
-                                fontSize: "16px",
-                                textDecoration: "none",
-                                fontWeight: "500",
-                              }}
-                            >
-                              {email}
-                            </a>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-
-                    {/* Message Section */}
-                    <div>
-                      <h2
-                        style={{
-                          color: "#111827",
-                          fontSize: "18px",
-                          fontWeight: "600",
-                          margin: "0 0 16px",
-                          borderBottom: "2px solid #e5e7eb",
-                          paddingBottom: "8px",
-                        }}
-                      >
-                        Message
-                      </h2>
-                      <div
-                        style={{
-                          backgroundColor: "#f9fafb",
-                          border: "1px solid #e5e7eb",
-                          borderRadius: "8px",
-                          padding: "20px",
-                          color: "#374151",
-                          fontSize: "15px",
-                          lineHeight: "1.7",
-                          whiteSpace: "pre-wrap",
-                          wordBreak: "break-word",
-                        }}
-                      >
-                        {description}
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-
-                {/* Footer */}
-                <tr>
-                  <td
-                    style={{
-                      backgroundColor: "#f9fafb",
-                      padding: "30px 40px",
-                      borderTop: "1px solid #e5e7eb",
-                    }}
-                  >
-                    <p
-                      style={{
-                        color: "#6b7280",
-                        fontSize: "14px",
-                        margin: "0 0 8px",
-                        textAlign: "center",
-                      }}
-                    >
-                      This email was sent from the contact form on{" "}
-                      <strong>Q-DAS Global</strong> website
-                    </p>
-                    <p
-                      style={{
-                        color: "#9ca3af",
-                        fontSize: "12px",
-                        margin: 0,
-                        textAlign: "center",
-                      }}
-                    >
-                      Reply directly to this email to respond to {name}
-                    </p>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-    </html>
+                Q-DAS Global
+              </Link>{" "}
+              website contact form on{" "}
+              <span className="text-black">
+                {new Date().toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </span>
+              .
+            </Text>
+            <Text className="text-[12px] leading-[24px] text-[#666666]">
+              You can reply directly to this email to respond to {name}.
+            </Text>
+          </Container>
+        </Body>
+      </Tailwind>
+    </Html>
   );
 }
 

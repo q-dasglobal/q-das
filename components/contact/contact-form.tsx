@@ -1,8 +1,10 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { Turnstile } from "next-turnstile";
 import { HiMail, HiUser, HiChat } from "react-icons/hi";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,7 +17,13 @@ import {
   type ContactFormValues,
 } from "@/lib/schemas/contact";
 
+// Check if we're in development mode
+const isDev = process.env.NODE_ENV === "development";
+
 export function ContactForm({ className }: { className?: string }) {
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [turnstileKey, setTurnstileKey] = useState(0); // Used to reset the widget
+
   const {
     register,
     handleSubmit,
@@ -26,13 +34,21 @@ export function ContactForm({ className }: { className?: string }) {
   });
 
   const onSubmit = async (data: ContactFormValues) => {
+    // Validate Turnstile token exists
+    if (!turnstileToken) {
+      toast.error("Please complete the verification", {
+        description: "The security verification is required to prevent spam.",
+      });
+      return;
+    }
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, turnstileToken }),
       });
 
       const result = await response.json();
@@ -46,6 +62,8 @@ export function ContactForm({ className }: { className?: string }) {
       });
 
       reset();
+      setTurnstileToken(null);
+      setTurnstileKey((prev) => prev + 1); // Reset widget to get new token
     } catch (error) {
       console.error("Contact form error:", error);
       toast.error("Failed to send message", {
@@ -54,6 +72,7 @@ export function ContactForm({ className }: { className?: string }) {
             ? error.message
             : "Please try again later or contact us directly.",
       });
+      setTurnstileToken(null);
     }
   };
 
@@ -170,9 +189,22 @@ export function ContactForm({ className }: { className?: string }) {
           )}
         </div>
 
+        {/* Turnstile CAPTCHA - uses sandbox mode in development */}
+        <Turnstile
+          key={turnstileKey}
+          siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+          onVerify={setTurnstileToken}
+          onExpire={() => setTurnstileToken(null)}
+          sandbox={isDev}
+          theme="light"
+          size="flexible"
+          retry="auto"
+          refreshExpired="auto"
+        />
+
         <Button
           type="submit"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !turnstileToken}
           className="bg-primary hover:bg-primary/90 h-12 w-full rounded-full text-base font-semibold text-white disabled:opacity-70"
         >
           {isSubmitting ? (
