@@ -79,17 +79,17 @@ export function TeamContent({ members }: TeamContentProps) {
                   <PlusIcon className="h-8 w-8 text-gray-400 transition-colors" />
                 </div>
                 <h3 className="font-display mb-3 text-xl font-bold text-gray-900">
-                  Join Our Team
+                  Work With Us
                 </h3>
                 <p className="mb-8 text-sm leading-relaxed text-gray-500">
-                  We are always looking for passionate individuals to join our
-                  mission.
+                  Interested in being part of our journey? We&apos;d love to
+                  hear from you.
                 </p>
                 <a
                   href="/contact"
                   className="text-primary hover:bg-primary hover:ring-primary inline-flex items-center justify-center rounded-full bg-white px-6 py-2.5 text-sm font-bold shadow-sm ring-1 ring-gray-200 transition-all hover:text-white"
                 >
-                  View Openings
+                  Get in Touch
                 </a>
               </div>
             </div>

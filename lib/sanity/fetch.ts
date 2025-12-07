@@ -3,8 +3,12 @@ import type { NewsArticle } from "@/lib/data/news";
 import type { TeamMember } from "@/lib/data/team";
 import type { Testimonial } from "@/lib/types/testimonial";
 
+// Helper: Only fetch published documents (excludes drafts)
+// Draft documents in Sanity have _id starting with "drafts."
+const publishedFilter = `!(_id in path("drafts.**"))`;
+
 export async function getNewsArticles(): Promise<NewsArticle[]> {
-  const query = `*[_type == "post"] | order(publishedAt desc) {
+  const query = `*[_type == "post" && ${publishedFilter}] | order(publishedAt desc) {
     _id,
     "id": _id,
     "slug": slug.current,
@@ -25,7 +29,7 @@ export async function getNewsArticles(): Promise<NewsArticle[]> {
 export async function getNewsArticle(
   slug: string,
 ): Promise<NewsArticle | null> {
-  const query = `*[_type == "post" && slug.current == $slug][0] {
+  const query = `*[_type == "post" && slug.current == $slug && ${publishedFilter}][0] {
     _id,
     "id": _id,
     "slug": slug.current,
@@ -44,7 +48,7 @@ export async function getNewsArticle(
 }
 
 export async function getTeamMembers(): Promise<TeamMember[]> {
-  const query = `*[_type == "teamMember"] | order(order asc) {
+  const query = `*[_type == "teamMember" && ${publishedFilter}] | order(order asc) {
     _id,
     name,
     role,
@@ -55,7 +59,7 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {
-  const query = `*[_type == "testimonial"] {
+  const query = `*[_type == "testimonial" && ${publishedFilter}] {
     _id,
     name,
     role,
