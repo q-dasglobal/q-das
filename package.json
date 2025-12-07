@@ -34,6 +34,7 @@
     "@sanity/image-url": "^2.0.2",
     "@sanity/vision": "^4.20.3",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "@vercel/analytics": "^1.6.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.554.0",
