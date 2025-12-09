@@ -51,11 +51,31 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
   const query = `*[_type == "teamMember" && ${publishedFilter}] | order(order asc) {
     _id,
     name,
+    "slug": slug.current,
     role,
-    "image": image.asset->url
+    "image": image.asset->url,
+    shortBio
   }`;
 
   return client.fetch(query);
+}
+
+export async function getTeamMember(slug: string): Promise<TeamMember | null> {
+  const query = `*[_type == "teamMember" && slug.current == $slug && ${publishedFilter}][0] {
+    _id,
+    name,
+    "slug": slug.current,
+    role,
+    "image": image.asset->url,
+    shortBio,
+    bio,
+    socialLinks[] {
+      platform,
+      url
+    }
+  }`;
+
+  return client.fetch(query, { slug });
 }
 
 export async function getTestimonials(): Promise<Testimonial[]> {
