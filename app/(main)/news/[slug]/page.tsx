@@ -42,24 +42,18 @@ export async function generateMetadata({
   const article = await getNewsArticle(slug);
   if (!article)
     return {
-      title: "Article Not Found | Q-DAS Global",
+      title: "Article Not Found",
       description: "The requested article could not be found.",
     };
   return {
-    title: `${article.title} | Q-DAS Global`,
+    title: article.title,
     description: article.excerpt,
-    keywords: [article.category, "Q-DAS Global", "news", "ICT"],
     openGraph: {
-      title: `${article.title} | Q-DAS Global`,
+      title: article.title,
       description: article.excerpt,
       type: "article",
       publishedTime: article.date,
       authors: [article.author],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${article.title} | Q-DAS Global`,
-      description: article.excerpt,
     },
   };
 }

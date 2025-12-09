@@ -4,29 +4,9 @@ import { ContactSection } from "@/components/shared/contact-section";
 import { AboutContent } from "@/components/about/about-page-content";
 
 export const metadata: Metadata = {
-  title: "About Us | Q-DAS Global",
+  title: "About Us",
   description:
-    "Since 2011, Q-DAS Global has been empowering organizations with intelligent, secure, and scalable ICT solutions. Learn about our mission, vision, and core values.",
-  keywords: [
-    "Q-DAS Global",
-    "about us",
-    "ICT company Nigeria",
-    "technology solutions",
-    "mission vision",
-    "core values",
-  ],
-  openGraph: {
-    title: "About Us | Q-DAS Global",
-    description:
-      "Since 2011, Q-DAS Global has been empowering organizations with intelligent, secure, and scalable ICT solutions.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "About Us | Q-DAS Global",
-    description:
-      "Since 2011, Q-DAS Global has been empowering organizations with intelligent, secure, and scalable ICT solutions.",
-  },
+    "Since 2011, Q-DAS Global has empowered organizations with intelligent, secure, and scalable ICT solutions. Discover our mission, vision, and values.",
 };
 
 export default function AboutPage() {

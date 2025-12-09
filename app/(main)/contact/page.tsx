@@ -4,9 +4,9 @@ import { ContactContent } from "@/components/contact/contact-page-content";
 import { FAQ } from "@/components/home/faq";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Q-DAS Global",
+  title: "Contact Us",
   description:
-    "Get in touch with Q-DAS Global. We are ready to help you transform your business with intelligent ICT solutions.",
+    "Get in touch with Q-DAS Global. We're ready to help transform your business with intelligent ICT solutions.",
 };
 
 export default function ContactPage() {

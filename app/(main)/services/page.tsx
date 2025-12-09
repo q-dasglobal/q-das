@@ -4,30 +4,9 @@ import { ContactSection } from "@/components/shared/contact-section";
 import { ServicesContent } from "@/components/services/services-page-content";
 
 export const metadata: Metadata = {
-  title: "Our Services | Q-DAS Global",
+  title: "Our Services",
   description:
-    "From intelligent software development to robust infrastructure, we deliver end-to-end technology solutions designed for scale. Explore our comprehensive ICT services.",
-  keywords: [
-    "software development",
-    "managed IT services",
-    "infrastructure solutions",
-    "IT consulting",
-    "cloud services",
-    "cybersecurity",
-    "digital transformation",
-  ],
-  openGraph: {
-    title: "Our Services | Q-DAS Global",
-    description:
-      "From intelligent software development to robust infrastructure, we deliver the systems that power modern enterprises.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Services | Q-DAS Global",
-    description:
-      "From intelligent software development to robust infrastructure, we deliver the systems that power modern enterprises.",
-  },
+    "End-to-end ICT solutions—from software development to infrastructure—designed for scale and built for modern enterprises.",
 };
 
 export default function ServicesPage() {

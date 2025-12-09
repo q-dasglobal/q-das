@@ -6,28 +6,9 @@ import { LeadershipValues } from "@/components/team/leadership-values";
 import { getTeamMembers } from "@/lib/sanity/fetch";
 
 export const metadata: Metadata = {
-  title: "Our Team | Q-DAS Global",
+  title: "Our Team",
   description:
-    "Meet our leadership team. Led by visionaries and powered by expertise, our team drives Q-DAS Global's sustainable growth and innovation in ICT solutions.",
-  keywords: [
-    "Q-DAS Global team",
-    "leadership",
-    "executive team",
-    "ICT professionals",
-    "Nigeria technology leaders",
-  ],
-  openGraph: {
-    title: "Our Team | Q-DAS Global",
-    description:
-      "Our leadership blends expertise, passion, and vision to drive Q-DAS' sustainable growth and innovation.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Our Team | Q-DAS Global",
-    description:
-      "Our leadership blends expertise, passion, and vision to drive Q-DAS' sustainable growth and innovation.",
-  },
+    "Meet the leadership team driving Q-DAS Global's innovation and growth in ICT solutions across Africa.",
 };
 
 // ISR: Revalidate every hour (team changes infrequently)

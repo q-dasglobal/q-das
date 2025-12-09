@@ -5,28 +5,9 @@ import { NewsContent } from "@/components/news/news-page-content";
 import { getNewsArticles } from "@/lib/sanity/fetch";
 
 export const metadata: Metadata = {
-  title: "News & Insights | Q-DAS Global",
+  title: "News & Insights",
   description:
-    "Explore the latest news, success stories, and technological breakthroughs from Q-DAS Global. Stay updated with industry insights and innovation.",
-  keywords: [
-    "Q-DAS Global news",
-    "ICT news",
-    "technology updates",
-    "industry insights",
-    "Nigeria tech news",
-  ],
-  openGraph: {
-    title: "News & Insights | Q-DAS Global",
-    description:
-      "Explore the latest news, success stories, and technological breakthroughs from Q-DAS Global.",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "News & Insights | Q-DAS Global",
-    description:
-      "Explore the latest news, success stories, and technological breakthroughs from Q-DAS Global.",
-  },
+    "Latest news, success stories, and tech breakthroughs from Q-DAS Global. Stay updated with industry insights.",
 };
 
 // ISR: Revalidate every 60 seconds

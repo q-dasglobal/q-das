@@ -16,10 +16,39 @@ const montserratBody = Montserrat({
   weight: ["400", "500", "600", "700"],
 });
 
+const siteDescription =
+  "Empowering organizations across Nigeria and Africa with ICT solutions, software development, and managed IT services since 2011.";
+
 export const metadata: Metadata = {
-  title: "Q-DAS Global",
-  description:
-    "Q-DAS Global provides innovative ICT solutions for government agencies in Nigeria.",
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "https://qdasglobal.com",
+  ),
+  title: {
+    default: "Q-DAS Global | ICT Solutions & Digital Transformation",
+    template: "%s | Q-DAS Global",
+  },
+  description: siteDescription,
+  keywords: [
+    "ICT solutions Nigeria",
+    "software development Africa",
+    "managed IT services",
+    "digital transformation",
+    "cloud computing",
+    "AI solutions",
+    "IT infrastructure",
+    "Q-DAS Global",
+  ],
+  openGraph: {
+    title: "Q-DAS Global",
+    description: siteDescription,
+    type: "website",
+    siteName: "Q-DAS Global",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Q-DAS Global",
+    description: siteDescription,
+  },
 };
 
 export default function RootLayout({
