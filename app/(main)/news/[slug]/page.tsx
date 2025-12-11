@@ -178,7 +178,7 @@ export default async function NewsDetailPage({ params }: NewsDetailProps) {
             {/* Right Column (Content) */}
             <div className="min-w-0 lg:col-span-9">
               {/* Hero Image */}
-              <div className="relative mb-10 aspect-video w-full overflow-hidden rounded-2xl shadow-sm md:rounded-3xl lg:mb-12">
+              <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-2xl shadow-sm md:rounded-3xl">
                 <ImageWithFallback
                   src={
                     article.mainImage

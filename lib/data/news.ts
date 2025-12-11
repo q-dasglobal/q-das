@@ -171,8 +171,7 @@ export const newsArticles: NewsArticle[] = [
     category: "Inside QDAS",
     date: "2025-11-12",
     author: "Hassan Umar",
-    image:
-      "https://images.unsplash.com/photo-1544531586-fde5298cdd40?w=800&h=600&fit=crop&auto=format&q=80",
+    image: "/images/news/innovation-week-2025.png",
   },
   {
     id: "2",
@@ -288,8 +287,7 @@ export const newsArticles: NewsArticle[] = [
     category: "Featured",
     date: "2025-11-09",
     author: "David Chen",
-    image:
-      "https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=800&h=600&fit=crop&auto=format&q=80",
+    image: "/images/news/future-of-work.png",
     featured: true,
   },
   {

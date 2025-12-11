@@ -15,7 +15,8 @@
 
 // Load environment variables from .env.local
 import { config } from "dotenv";
-import { resolve } from "path";
+import { resolve, join } from "path";
+import { createReadStream, existsSync } from "fs";
 
 config({ path: resolve(process.cwd(), ".env.local") });
 
@@ -33,6 +34,48 @@ const client = createClient({
 });
 
 /**
+ * Upload image to Sanity asset
+ */
+async function uploadImage(imageSource: string): Promise<string | null> {
+  if (!imageSource) return null;
+
+  try {
+    let stream: any;
+    let filename: string;
+
+    if (imageSource.startsWith("http")) {
+      // Remote URL
+      const res = await fetch(imageSource);
+      if (!res.ok) throw new Error(`Failed to fetch image: ${res.statusText}`);
+      const arrayBuffer = await res.arrayBuffer();
+      stream = Buffer.from(arrayBuffer);
+      filename = imageSource.split("/").pop()?.split("?")[0] || "image.jpg";
+    } else {
+      // Local path
+      const localPath = imageSource.startsWith("/")
+        ? join(process.cwd(), "public", imageSource)
+        : join(process.cwd(), "public", "/" + imageSource);
+
+      if (!existsSync(localPath)) {
+        console.warn(`  ⚠️ Image not found locally: ${localPath}`);
+        return null;
+      }
+      stream = createReadStream(localPath);
+      filename = localPath.split("/").pop() || "image.jpg";
+    }
+
+    const asset = await client.assets.upload("image", stream, {
+      filename: filename,
+    });
+
+    return asset._id;
+  } catch (error) {
+    console.error(`  ⚠️ Failed to upload image ${imageSource}:`, error);
+    return null;
+  }
+}
+
+/**
  * Migrate news articles to Sanity
  */
 async function migrateNews() {
@@ -44,6 +87,22 @@ async function migrateNews() {
 
       // Create author first (or use existing)
       const authorId = await createOrGetAuthor(article.author);
+
+      // Upload image if exists
+      let mainImage;
+      if (article.image) {
+        console.log(`    → Uploading image...`);
+        const imageAssetId = await uploadImage(article.image);
+        if (imageAssetId) {
+          mainImage = {
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: imageAssetId,
+            },
+          };
+        }
+      }
 
       // Create the post document
       const post = {
@@ -79,7 +138,8 @@ async function migrateNews() {
               }))
             : undefined,
         })), // Portable Text content
-        // Note: mainImage will need to be added manually via Sanity Studio
+
+        mainImage: mainImage,
       };
 
       await client.createOrReplace(post);
@@ -181,9 +241,8 @@ async function migrate() {
     console.log("   2. Upload images for each news article and team member");
     console.log("   3. Review and publish all content");
     console.log(
-      "\n📝 Note: Images from the static data cannot be auto-migrated.",
+      "\n📝 Note: News images were auto-migrated. Team images may need manual upload.",
     );
-    console.log("   You'll need to upload them manually in Sanity Studio.");
   } catch (error) {
     console.error("\n❌ Migration failed:", error);
     process.exit(1);
