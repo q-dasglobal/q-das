@@ -207,7 +207,7 @@ export function TeamMemberContent({
             </div>
 
             {/* Mobile: Horizontal Scroll Snap Carousel | Desktop: Grid */}
-            <div className="scrollbar-hide -mx-4 flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="scrollbar-hide -mx-4 flex touch-pan-x snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 md:mx-0 md:grid md:grid-cols-2 md:gap-6 md:overflow-visible md:px-0 md:pb-0 lg:grid-cols-3">
               {otherMembers.map((otherMember, index) => (
                 <div
                   key={otherMember.slug}
