@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Q-DAS Admin | Q-DAS Global",
+  title: "Q-DAS Admin",
   robots: { index: false, follow: false },
 };
 

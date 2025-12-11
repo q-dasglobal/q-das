@@ -1,4 +1,4 @@
-import { client } from "./client";
+import { client } from "@/lib/sanity/client";
 import type { NewsArticle } from "@/lib/data/news";
 import type { TeamMember } from "@/lib/data/team";
 import type { Testimonial } from "@/lib/types/testimonial";

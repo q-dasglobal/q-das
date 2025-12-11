@@ -233,7 +233,7 @@ export function Hero() {
                 <div className="flex -space-x-3">
                   <Avatar className="h-10 w-10 border-2 border-white md:h-12 md:w-12">
                     <AvatarImage
-                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces&auto=format&q=80"
+                      src="/images/avatars/avatar-1.png"
                       alt="Professional man"
                     />
                     <AvatarFallback className="bg-linear-to-br from-blue-400 to-blue-600 font-semibold text-white">
@@ -242,7 +242,7 @@ export function Hero() {
                   </Avatar>
                   <Avatar className="h-10 w-10 border-2 border-white md:h-12 md:w-12">
                     <AvatarImage
-                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces&auto=format&q=80"
+                      src="/images/avatars/avatar-2.png"
                       alt="Professional woman"
                     />
                     <AvatarFallback className="bg-linear-to-br from-purple-400 to-purple-600 font-semibold text-white">
@@ -251,7 +251,7 @@ export function Hero() {
                   </Avatar>
                   <Avatar className="h-10 w-10 border-2 border-white md:h-12 md:w-12">
                     <AvatarImage
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=faces&auto=format&q=80"
+                      src="/images/avatars/avatar-3.png"
                       alt="Business man"
                     />
                     <AvatarFallback className="bg-linear-to-br from-green-400 to-green-600 font-semibold text-white">
@@ -260,7 +260,7 @@ export function Hero() {
                   </Avatar>
                   <Avatar className="h-10 w-10 border-2 border-white md:h-12 md:w-12">
                     <AvatarImage
-                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=faces&auto=format&q=80"
+                      src="/images/avatars/avatar-4.png"
                       alt="Business woman"
                     />
                     <AvatarFallback className="bg-linear-to-br from-pink-400 to-pink-600 font-semibold text-white">
@@ -269,7 +269,7 @@ export function Hero() {
                   </Avatar>
                   <Avatar className="h-10 w-10 border-2 border-white md:h-12 md:w-12">
                     <AvatarImage
-                      src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces&auto=format&q=80"
+                      src="/images/avatars/avatar-5.png"
                       alt="Professional person"
                     />
                     <AvatarFallback className="bg-linear-to-br from-orange-400 to-orange-600 font-semibold text-white">

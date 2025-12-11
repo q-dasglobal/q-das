@@ -201,10 +201,10 @@ export function Testimonials({ testimonials = [] }: TestimonialsProps) {
                   // Using smaller offsets for better responsiveness on mobile
                   let xOffset = 0;
                   // Mobile-first safe values
-                  if (offset === -1) xOffset = -85; // Tighter for mobile
-                  if (offset === 1) xOffset = 85;
-                  if (offset === -2) xOffset = -160;
-                  if (offset === 2) xOffset = 160;
+                  if (offset === -1) xOffset = -55; // Tighter for mobile (was 85)
+                  if (offset === 1) xOffset = 55;
+                  if (offset === -2) xOffset = -110;
+                  if (offset === 2) xOffset = 110;
 
                   return (
                     <motion.button
@@ -237,8 +237,8 @@ export function Testimonials({ testimonials = [] }: TestimonialsProps) {
                       <div
                         className={`relative overflow-hidden rounded-full transition-all duration-300 ${
                           isActive
-                            ? "border-primary h-16 w-16 border-4 md:h-20 md:w-20"
-                            : "h-12 w-12 border-2 border-white/60 md:h-14 md:w-14"
+                            ? "border-primary h-14 w-14 border-4 md:h-20 md:w-20" // Reduced mobile size (16->14)
+                            : "h-10 w-10 border-2 border-white/60 md:h-14 md:w-14" // Reduced mobile size (12->10)
                         }`}
                       >
                         <Avatar className="h-full w-full">
