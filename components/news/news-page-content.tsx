@@ -62,11 +62,11 @@ export function NewsContent({ articles }: NewsContentProps) {
     <section className="bg-white lg:pt-8">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         {/* Top Bar: Categories & Search */}
-        <div className="mb-10 flex flex-col gap-6 border-b border-gray-100 pb-6 md:flex-row md:items-center md:justify-between">
+        <div className="mb-10 flex flex-col gap-6 border-b border-gray-100 pb-4 md:flex-row md:items-center md:justify-between">
           {/* Categories */}
           <div className="relative">
             {/* Horizontal scroll container for mobile, flex-wrap for desktop */}
-            <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto pb-2 md:flex-wrap md:overflow-visible md:pb-0">
+            <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto pt-2 pb-2 md:flex-wrap md:overflow-visible md:pb-0">
               {categories.map((category) => (
                 <motion.button
                   key={category}
