@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import { HiCog } from "react-icons/hi";
 import { SectionBadge } from "@/components/section-badge";
 import { ServiceCard } from "@/components/shared/service-card";
-import { services } from "@/lib/data/services";
+import { services } from "@/lib/data";
 
 export function Services() {
   return (

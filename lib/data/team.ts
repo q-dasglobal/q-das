@@ -13,7 +13,7 @@ export type SocialPlatform =
   | "email"
   | "website";
 
-export type SocialLink = {
+type SocialLink = {
   platform: SocialPlatform;
   url: string;
 };
