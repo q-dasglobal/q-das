@@ -24,6 +24,32 @@ const socialIconMap: Record<
   website: { icon: HiGlobeAlt, hoverColor: "hover:text-primary" },
 };
 
+// Platform base URLs for username support
+const platformBaseUrls: Record<SocialPlatform, string> = {
+  linkedin: "https://linkedin.com/in/",
+  x: "https://x.com/",
+  instagram: "https://instagram.com/",
+  facebook: "https://facebook.com/",
+  email: "",
+  website: "https://",
+};
+
+// Smart URL builder - accepts username or full URL
+const buildUrl = (platform: SocialPlatform, input: string): string => {
+  if (!input) return "";
+
+  // Email: keep as-is
+  if (platform === "email") return input;
+
+  // If already a full URL, return as-is
+  if (input.startsWith("http://") || input.startsWith("https://")) {
+    return input;
+  }
+
+  // Otherwise, prefix with platform base URL
+  return platformBaseUrls[platform] + input;
+};
+
 interface TeamMemberContentProps {
   member: TeamMember;
   otherMembers: TeamMember[];
@@ -156,10 +182,13 @@ export function TeamMemberContent({
                         const socialConfig = socialIconMap[link.platform];
                         if (!socialConfig) return null;
                         const Icon = socialConfig.icon;
+
+                        // Build URL from username or full URL
+                        const fullUrl = buildUrl(link.platform, link.url);
                         const href =
                           link.platform === "email"
-                            ? `mailto:${link.url}`
-                            : link.url;
+                            ? `mailto:${fullUrl}`
+                            : fullUrl;
 
                         return (
                           <a
