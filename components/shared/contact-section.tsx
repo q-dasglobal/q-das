@@ -8,7 +8,7 @@ import { ContactInfo } from "@/components/contact/contact-info";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="py-16 lg:py-20">
+    <section id="contact" className="scroll-mt-24 py-16">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         {/* Header */}
         <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
